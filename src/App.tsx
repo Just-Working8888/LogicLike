@@ -7,8 +7,8 @@ import { api } from './api/index';
 
 function App() {
   const [courses, setCourses] = useState<ICourse[]>([]);
-  const [tags, setTags] = useState<string[]>([]);
-  const [selectedTag, setSelectedTag] = useState<string | null>(null);
+  const [tags, setTags] = useState<string[]>(["Все темы"]);
+  const [selectedTag, setSelectedTag] = useState<string | null>("Все темы");
 
   const getCourses = useCallback(async () => {
     try {
@@ -25,7 +25,7 @@ function App() {
 
   useEffect(() => {
     const allTags: string[] = Array.from(new Set(courses.flatMap(course => course.tags)));
-    setTags(['Все темы', ...allTags])
+    setTags([...tags, ...allTags])
   }, [courses])
 
   const filteredCourses = useMemo(() =>
